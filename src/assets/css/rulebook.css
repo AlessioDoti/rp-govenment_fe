@@ -1,0 +1,26 @@
+body {
+    background: linear-gradient(135deg, var(--body-gradient-start), var(--body-gradient-end));
+    font-family: Arial, sans-serif;
+    color: var(--text-primary);
+}
+
+.header {
+    background: linear-gradient(135deg, var(--header-start), var(--header-end));
+    color: var(--navbar-text);
+    padding: 60px 0;
+}
+
+.rule-card {
+    background: var(--bg-secondary);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: var(--card-shadow);
+    margin-top: -40px;
+    color: var(--text-primary);
+}
+
+.section-title {
+    border-left: 5px solid var(--accent-color);
+    padding-left: 15px;
+    margin-bottom: 20px;
+}

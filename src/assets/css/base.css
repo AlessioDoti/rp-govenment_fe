@@ -1,0 +1,242 @@
+/* App shell global styles: body, navbar, container, buttons, card base.
+   Component-specific styles (hero, back-btn, modal, footer, icon-delete, card-feature)
+   live scoped inside their atomic/organism components. */
+
+body {
+    background: linear-gradient(135deg, var(--body-gradient-start), var(--body-gradient-end));
+    color: var(--text-primary);
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    transition: background 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+#theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: transparent;
+    color: var(--navbar-text);
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    padding: 0;
+}
+
+#theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#theme-toggle .bi {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 576px) {
+    #theme-toggle {
+        width: 40px;
+        height: 40px;
+    }
+
+    #theme-toggle .bi {
+        font-size: 1rem;
+    }
+}
+
+.navbar {
+    background-color: var(--navbar-bg) !important;
+    padding: 10px 0;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link,
+.navbar button {
+    color: var(--navbar-text) !important;
+}
+
+.navbar .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h3 {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.navbar .btn-theme-toggle {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.2s ease;
+}
+
+.navbar .btn-theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar a, .navbar button {
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.navbar .nav-link:hover {
+    background: var(--bg-secondary);
+    border-radius: 5px;
+}
+
+.navbar .nav-link:hover,
+.navbar .btn:hover {
+    border-radius: 12px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    margin: 20px 0;
+    color: var(--text-primary);
+}
+
+.card h1 {
+    margin-top: 0;
+}
+
+.card a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.card a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-danger,
+.btn-warning,
+.btn-info,
+.btn-light,
+.btn-dark {
+    background-color: var(--btn-bg) !important;
+    border-color: var(--btn-bg) !important;
+    color: var(--btn-text) !important;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-success:hover,
+.btn-danger:hover,
+.btn-warning:hover,
+.btn-info:hover,
+.btn-light:hover,
+.btn-dark:hover {
+    background-color: var(--btn-bg) !important;
+    border-color: var(--btn-bg) !important;
+    color: var(--btn-text) !important;
+    opacity: 0.85;
+}
+
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-success,
+.btn-outline-danger,
+.btn-outline-warning,
+.btn-outline-info,
+.btn-outline-light,
+.btn-outline-dark {
+    color: var(--btn-bg) !important;
+    border-color: var(--btn-bg) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-secondary:hover,
+.btn-outline-success:hover,
+.btn-outline-danger:hover,
+.btn-outline-warning:hover,
+.btn-outline-info:hover,
+.btn-outline-light:hover,
+.btn-outline-dark:hover {
+    background-color: var(--btn-bg) !important;
+    border-color: var(--btn-bg) !important;
+    color: var(--btn-text) !important;
+}
+
+.admin-only {
+    display: none;
+}
+
+[data-theme="dark"] .text-muted {
+    color: #cbd5e1 !important;
+}
+
+/* Global form-control theming (used in login form, signup, modals) */
+.form-control,
+.form-select {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+    border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: transparent;
+    color: var(--text-primary);
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.25) !important;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: #94a3b8 !important;
+    opacity: 1 !important;
+}
+
+[data-theme="dark"] .form-select option {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+    background-color: #1e293b;
+    color: #f8fafc;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+}
+
+[data-theme="dark"] .form-control.is-invalid,
+[data-theme="dark"] .form-select.is-invalid {
+    border-color: #ef4444 !important;
+}
+
+[data-theme="dark"] .modal-backdrop.show {
+    background-color: rgba(2, 6, 23, 0.6) !important;
+}

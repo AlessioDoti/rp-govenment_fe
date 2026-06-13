@@ -1,0 +1,81 @@
+.dashboard-section h2,
+.dashboard-section h3,
+.dashboard-section p,
+.dashboard-section .card h3 {
+    color: var(--text-primary);
+}
+
+.dashboard-section .card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-section .card:hover {
+    transform: translateY(-3px);
+}
+
+.dashboard-summary .card {
+    background: var(--bg-secondary);
+}
+
+.dashboard-section .btn {
+    min-width: 120px;
+}
+
+.card-clickable {
+    cursor: pointer;
+}
+
+.card-clickable:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-add-item {
+    cursor: pointer;
+    background: var(--bg-secondary);
+    opacity: 0.6;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+    border: 2px dashed rgba(0, 0, 0, 0.2);
+    min-height: 250px;
+}
+
+.card-add-item:hover {
+    opacity: 0.8;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
+    border-color: var(--text-primary);
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0 !important;
+    border-radius: 50%;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    transform: translateX(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 576px) {
+    .back-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+}
+
+[data-theme="dark"] .text-muted {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .card .text-muted.small {
+    color: #bfdbfe !important;
+}

@@ -1,0 +1,49 @@
+/* Design tokens: variabili globali del tema (light / dark) */
+
+:root {
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --text: #111827;
+    --text-muted: #6b7280;
+    --accent: #2563eb;
+    --navbar: #1d3557;
+    --navbar-text: #f8fafc;
+    --btn-bg: #ffc300;
+    --btn-text: #000000;
+    --header-start: #1d3557;
+    --header-end: #457b9d;
+    --body-gradient-start: #f4f6f9;
+    --body-gradient-end: #e2e8f0;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+    --bg-primary: var(--bg);
+    --text-primary: var(--text);
+    --navbar-bg: var(--navbar);
+    --bg-secondary: var(--card);
+    --accent-color: var(--accent);
+    --icon-color: #111827;
+}
+
+[data-theme="dark"] {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent: #3b82f6;
+    --navbar: #020617;
+    --navbar-text: #f8fafc;
+    --btn-bg: #ffc300;
+    --btn-text: #000000;
+    --header-start: #1b263b;
+    --header-end: #0f172a;
+    --body-gradient-start: #0f172a;
+    --body-gradient-end: #1b263b;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+    --bg-primary: var(--bg);
+    --text-primary: var(--text);
+    --navbar-bg: var(--navbar);
+    --bg-secondary: var(--card);
+    --accent-color: var(--accent);
+    --icon-color: #f8fafc;
+}
