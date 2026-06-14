@@ -61,7 +61,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  /*** @param {{ firstname: string, lastname: string, username: string, password: string, birthDate?: string }} payload */
+  /*** @param {{ firstname: string, lastname: string, birthDate?: string, email?: string, username: string, password: string }} payload */
   async function register(payload) {
     isLoading.value = true
     error.value = null

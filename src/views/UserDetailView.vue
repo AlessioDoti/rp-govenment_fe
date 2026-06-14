@@ -25,6 +25,7 @@ const router = useRouter()
 const dialog = useDialog()
 
 const user = ref(/** @type {import('@/domain/models').UserPublic|null} */ (null))
+const person = ref(/** @type {{ name: string, surname: string }|null} */ (null))
 const editing = ref(false)
 const editedRoles = ref(/** @type {string[]} */ ([]))
 const saveError = ref('')
@@ -74,6 +75,12 @@ async function load() {
     return
   }
   user.value = u
+
+  if (u.userId) {
+    person.value = await api.getPersonByUserId(u.userId)
+  } else {
+    person.value = null
+  }
 }
 
 onMounted(load)
@@ -92,7 +99,7 @@ watch(username, load)
     <AppCard v-if="user" id="user-detail" class="p-4">
       <div class="d-flex align-items-start justify-content-between">
         <div>
-          <h3 class="mb-1">{{ user.username }}</h3>
+          <h3 class="mb-1">{{ person ? `${person.name} ${person.surname}` : user.username }}</h3>
           <p class="text-muted small mb-0">@{{ user.username }}</p>
         </div>
         <AppIconButton

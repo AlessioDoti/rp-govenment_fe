@@ -15,6 +15,7 @@ const { register, isLoading, error } = useAuth()
 
 const firstname = ref('')
 const lastname = ref('')
+const email = ref('')
 const username = ref('')
 const password = ref('')
 const passwordConfirm = ref('')
@@ -33,9 +34,10 @@ async function onSubmit() {
     await register({
       firstname: firstname.value.trim(),
       lastname: lastname.value.trim(),
+      birthDate: birthDate.value,
+      email: email.value.trim(),
       username: username.value.trim(),
-      password: password.value.trim(),
-      birthDate: birthDate.value
+      password: password.value.trim()
     })
     router.push('/')
   } catch (err) {
@@ -58,6 +60,10 @@ async function onSubmit() {
 
     <FormField label="Data di nascita" for-id="birthDate">
       <AppInput id="birthDate" v-model="birthDate" type="date" required />
+    </FormField>
+
+    <FormField label="Email" for-id="email">
+      <AppInput id="email" v-model="email" type="email" placeholder="Inserisci email" autocomplete="email" />
     </FormField>
 
     <FormField label="Username" for-id="username">

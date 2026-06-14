@@ -30,10 +30,6 @@ const emit = defineEmits(['add-employee'])
       <ul class="mt-3">
         <li v-for="(emp, idx) in activity.employees" :key="idx">{{ emp }}</li>
       </ul>
-      <p class="text-muted small">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-        incididunt ut labore et dolore magna aliqua.
-      </p>
       <div class="d-flex gap-2 flex-wrap mt-3">
         <AppIconButton
           icon="pencil-square"

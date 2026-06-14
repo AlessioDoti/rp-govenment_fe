@@ -54,7 +54,9 @@ async function assertOk(res) {
       details = `${body.error.code}: ${body.error.message ?? res.statusText}`
     }
   } catch {}
-  throw new Error(details)
+  const err = new Error(details)
+  err.status = res.status
+  throw err
 }
 
 /***

@@ -54,20 +54,20 @@ function onLogout() {
       <div class="row g-4">
         <div class="col-md-4">
           <AppCard feature class="p-4 h-100">
-            <h3 class="mb-3">Gestione Tasse</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h3 class="mb-3">Gestione Attività</h3>
+            <p>Calcolo Tasse, gestione pagamenti, aggiunta rimozione dipendenti.</p>
           </AppCard>
         </div>
         <div class="col-md-4">
           <AppCard feature class="p-4 h-100">
             <h3 class="mb-3">Servizi Civici</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>Accesso a servizi dedicati ai cittadini, come richieste di autorizzazione e informazioni sulle procedure.</p>
           </AppCard>
         </div>
         <div class="col-md-4">
           <AppCard feature class="p-4 h-100">
             <h3 class="mb-3">Regolamenti</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>Consulta il regolamento e accedi alle leggi e alle procedure.</p>
           </AppCard>
         </div>
       </div>

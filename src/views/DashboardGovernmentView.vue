@@ -12,6 +12,7 @@ import CategoryCard from '@/components/organisms/CategoryCard.vue'
 import CategoryEditModal from '@/components/organisms/CategoryEditModal.vue'
 import ActivityCard from '@/components/organisms/ActivityCard.vue'
 import AddItemCard from '@/components/organisms/AddItemCard.vue'
+import ActivityCreateModal from '@/components/organisms/ActivityCreateModal.vue'
 import AppButton from '@/components/atoms/AppButton.vue'
 import '@/assets/css/dashboard.css'
 
@@ -209,12 +210,15 @@ async function onCategoryCreated() {
   await refresh()
 }
 
-async function createActivity() {
-  const name = await dialog.prompt('Nuova attività', 'Nome della nuova attività')
-  if (!name) return
-  const categoryId = await dialog.prompt('Categoria', 'ID categoria di riferimento (es. c1, c2)')
-  if (!categoryId) return
-  await dialog.alert('Successo', 'Attività creata: ' + name)
+const showCreateActivityModal = ref(false)
+
+function createActivity() {
+  showCreateActivityModal.value = true
+}
+
+async function onActivityCreated() {
+  showCreateActivityModal.value = false
+  await refresh()
 }
 
 onMounted(async () => {
@@ -403,6 +407,12 @@ onMounted(async () => {
       v-if="showCreateCategoryModal"
       @close="showCreateCategoryModal = false"
       @saved="onCategoryCreated"
+    />
+
+    <ActivityCreateModal
+      v-if="showCreateActivityModal"
+      @close="showCreateActivityModal = false"
+      @saved="onActivityCreated"
     />
   </DashboardLayout>
 </template>

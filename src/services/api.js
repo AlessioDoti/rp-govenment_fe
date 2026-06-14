@@ -129,6 +129,23 @@ export const api = {
 
   /** @param {{ firstname: string, lastname: string, username: string, password: string }} payload @returns {Promise<SessionUser>} */
   async registerUser(payload) {
+    // 0. Pre-check: detect person conflict BEFORE creating the user
+    let existingPersonForLinking = null
+    if (payload.firstname || payload.lastname || payload.birthDate) {
+      try {
+        existingPersonForLinking = await api.findExactPerson(
+          payload.firstname || '',
+          payload.lastname || '',
+          payload.birthDate || ''
+        )
+      } catch (err) {
+        // Conflict (409) → fail before user is ever created
+        if (err._personConflict) throw err
+        // Network error on pre-check → log and continue (best-effort)
+        console.warn('[registerUser] Person pre-check failed, proceeding', err)
+      }
+    }
+
     // 1. Create user in auth service
     const createdUser = await httpClient.post('/auth/register', {
       username: payload.username,
@@ -136,16 +153,20 @@ export const api = {
       password: payload.password
     })
 
-    if (payload.firstname || payload.lastname || payload.birthDate) {
-      await api.createPerson({
-        name: payload.firstname || '',
-        surname: payload.lastname || '',
-        birthDate: payload.birthDate || '',
-        userId: createdUser.userId
-      }).catch(() => {
-        // Person creation is best-effort — log but don't block registration
-        console.warn('[registerUser] Failed to create person for user', createdUser.userId)
-      })
+    // 2. Link or create person (best-effort for network errors)
+    try {
+      if (existingPersonForLinking) {
+        await api.linkPerson(existingPersonForLinking.externalUuid, createdUser.userId)
+      } else if (payload.firstname || payload.lastname || payload.birthDate) {
+        await api.createPerson({
+          name: payload.firstname || '',
+          surname: payload.lastname || '',
+          birthDate: payload.birthDate || '',
+          userId: createdUser.userId
+        })
+      }
+    } catch (err) {
+      console.warn('[registerUser] Failed to link/create person for user', createdUser.userId, err)
     }
 
     return api.authenticate({ username: payload.username, password: payload.password })
@@ -231,6 +252,25 @@ export const api = {
     } catch { return null }
   },
 
+  /** @param {string} name @param {string} surname @param {string} birthDate @returns {Promise<Object|null>} */
+  async findExactPerson(name, surname, birthDate) {
+    try {
+      const params = new URLSearchParams({ name, surname, birthDate })
+      return await httpClient.get(`/person/find-exact?${params.toString()}`)
+    } catch (err) {
+      // 404 = no match at all → caller creates a new person
+      if (err.status === 404) return null
+      // Tag the error so registerUser knows it's a conflict from person lookup
+      err._personConflict = true
+      throw err
+    }
+  },
+
+  /** @param {string} uuid @param {number} userId @returns {Promise<Object>} */
+  async linkPerson(uuid, userId) {
+    return httpClient.post(`/person/${uuid}/link`, { userId })
+  },
+
   /** @param {number|string} activityId @returns {Promise<any[]>} */
   async getTaxesByActivity(activityId) {
     try {
@@ -281,9 +321,9 @@ export const api = {
     } catch { return [] }
   },
 
-  /** @param {string} name @param {number} categoryId @returns {Promise<Activity>} */
-  async createActivity(name, categoryId) {
-    const raw = await httpClient.post(`/activity/${categoryId}`, { name, address: 0 })
+  /** @param {string} name @param {number} categoryId @param {number} [address=0] @returns {Promise<Activity>} */
+  async createActivity(name, categoryId, address = 0) {
+    const raw = await httpClient.post(`/activity/${categoryId}`, { name, address })
     return mapActivity(raw)
   },
 
@@ -322,11 +362,6 @@ export const api = {
       await httpClient.patch(`/auth/users/${uuid}/roles`, { roles: newRoles })
       return true
     } catch { return false }
-  },
-
-  /** @param {string} username @returns {Promise<boolean>} */
-  async deleteUser(username) {
-    return true
   },
 
   /** @param {string} searchTerm @returns {Promise<UserPublic[]>} */
